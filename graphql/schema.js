@@ -19,13 +19,18 @@ const schema = buildSchema(`
   }
 
   type RootQuery {
-      getTodo(title: String): Todo
+      getTodo(title: String): [Todo!]
   }
 
   type RootMutation {
       createTodo(input: createTodoInput!): Todo!
       updateTodo(input: updateTodoInput!): Todo!
       deleteTodo(input: ID!): Boolean!
+  }
+
+  schema {
+    query: RootQuery
+    mutation: RootMutation
   }
 `);
 

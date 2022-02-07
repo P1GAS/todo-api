@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
 const app = express();
@@ -15,9 +16,11 @@ app.use(
   })
 );
 
-start = async () => {
-  await mongoose.connect(process.env.MONGO_URL);
-  app.listen(9000);
-};
+mongoose.connect(process.env.MONGO_URL, (err) => {
+  console.log("Mongoose error: " + err);
+  if (err) {
+    process.exit(1);
+  }
+});
 
-start();
+app.listen(9000, (err) => console.log("Server error: " + err));
